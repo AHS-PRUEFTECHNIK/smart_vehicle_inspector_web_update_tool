@@ -1,4 +1,4 @@
 {
-    "status_code":200,
-    "text":"ok"
+    "status_code":400,
+    "text":Version  bereits installiert
 }
