@@ -84,7 +84,7 @@ installierte_version= python -c "import sys, json; version_file = open(sys.argv[
 echo neue Version:
 neue_version= python -c "import sys, json; version_file = open(sys.argv[1]); print(json.load(version_file)['id']); version_file.close();" "/var/www/apps/temp/$(basename $archiv_file .zip)/version.json"
 
-if [[ $installierte_version != $neue_version ]]; then
+if [ $installierte_version -ne $neue_version ]; then
     # Backup erstellen
     timestamp=$(date +%Y%m%d_%H%M%S)
     cp -r /var/www/apps/svi_web /var/www/apps/temp/svi_web_$timestamp.bak
