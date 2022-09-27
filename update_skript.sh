@@ -72,14 +72,16 @@ esac
 if [ -z "$archiv_file" ] ; then
     # Error: Kein Update Archiv vorhanden
     status_datei_anpassen 400 "Kein Update Archiv vorhanden"
-    exit $?
+    exit -1
 fi
 
 # Archiv entpacken
 unzip -ud /var/www/apps/temp/$(basename $archiv_file .zip) $archiv_file
 
 # Versionen prüfen
+echo installierte Version:
 installierte_version= python -c "import sys, json; version_file = open(sys.argv[1]); print(json.load(version_file)['id']); version_file.close();" "/var/www/apps/svi_web/version.json"
+echo neue Version:
 neue_version= python -c "import sys, json; version_file = open(sys.argv[1]); print(json.load(version_file)['id']); version_file.close();" "/var/www/apps/temp/$(basename $archiv_file .zip)/version.json"
 
 if [[ $installierte_version != $neue_version ]]; then
@@ -95,9 +97,9 @@ if [[ $installierte_version != $neue_version ]]; then
 
     # Erfolgreich abgeschlossen
     status_datei_anpassen 200 "ok"
-    exit $?
+    exit
 else
     # Error: Versionen sind gleich => Fehlermeldung ausgeben
     status_datei_anpassen 400 "Version $neue_version bereits installiert"
-    exit $?
+    exit -1
 fi
