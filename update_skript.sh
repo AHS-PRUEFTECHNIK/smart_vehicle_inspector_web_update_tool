@@ -23,7 +23,7 @@ status_datei_anpassen(){
     tee /var/www/apps/svi_web/status.json << END
 {
     "status_code":$status_code,
-    "text":$status_text
+    "text":\"$status_text\"
 }
 END
 }
@@ -47,7 +47,7 @@ archiv_von_stick_kopieren(){
         mount $usb_device /media$usb_device
         usb_device_mount=/media$usb_device
         # nach Update Datei suchen
-        update_file=$(find $usb_device_mount -name 'smart_vehicle_inspector_web_update_tool*.zip')
+        update_file=$(find $usb_device_mount -name 'smart_vehicle_inspector_web*.zip')
         echo $archiv_file
         if [ -z "$update_file" ]; then
             umount $usb_device
@@ -79,10 +79,10 @@ fi
 unzip -ud /var/www/apps/temp $archiv_file
 
 # Versionen prüfen
-echo installierte Version:
-installierte_version= python -c "import sys, json; version_file = open(sys.argv[1]); print(json.load(version_file)['id']); version_file.close();" "/var/www/apps/svi_web/version.json"
-echo neue Version:
-neue_version= python -c "import sys, json; version_file = open(sys.argv[1]); print(json.load(version_file)['id']); version_file.close();" "/var/www/apps/temp/$(basename $archiv_file .zip)/version.json"
+echo "installierte Version":
+installierte_version= python -c "import sys, json; version_file = open(sys.argv[1]); print(json.load(version_file)['tag_name']); version_file.close();" "/var/www/apps/svi_web/version.json"
+echo "neue Version":
+neue_version= python -c "import sys, json; version_file = open(sys.argv[1]); print(json.load(version_file)['tag_name']); version_file.close();" "/var/www/apps/temp/$(basename $archiv_file .zip)/version.json"
 
 if [ $installierte_version -ne $neue_version ]; then
     # Backup erstellen

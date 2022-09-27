@@ -1,3 +1,5 @@
 api/
 frontend/
 *.zip
+
+releases/
