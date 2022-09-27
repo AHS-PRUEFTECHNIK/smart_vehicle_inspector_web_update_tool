@@ -92,12 +92,13 @@ if [ $installierte_version -ne $neue_version ]; then
     # entpackte Archiv Daten in Projektordner kopieren
     cp -ru /var/www/apps/temp/$(basename $archiv_file .zip)/. /var/www/apps/svi_web
 
+    # Erfolgreich abgeschlossen
+    status_datei_anpassen 200 "ok"
+
     # Apache2 Dienst neustarten
     systemctl restart apache2
 
-    # Erfolgreich abgeschlossen
-    status_datei_anpassen 200 "ok"
-    exit
+    exit 0
 else
     # Error: Versionen sind gleich => Fehlermeldung ausgeben
     status_datei_anpassen 400 "Version $neue_version bereits installiert"
