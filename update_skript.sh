@@ -76,7 +76,7 @@ if [ -z "$archiv_file" ] ; then
 fi
 
 # Archiv entpacken
-unzip -ud /var/www/apps/temp/$(basename $archiv_file .zip) $archiv_file
+unzip -ud /var/www/apps/temp $archiv_file
 
 # Versionen prüfen
 echo installierte Version:
