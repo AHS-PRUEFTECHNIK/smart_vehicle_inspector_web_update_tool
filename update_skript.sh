@@ -10,20 +10,20 @@ status_datei_anpassen(){
     then
         status_code=$DEFAULT_STATUS_CODE
     else
-        status_code=$1
+        status_code="$1"
     fi
 
     if [ -z "$2" ]                           # Is parameter #1 zero length?
     then
         status_text=$DEFAULT_STATUS_TEXT
     else
-        status_text=$2
+        status_text="$2"
     fi
 
     tee /var/www/apps/svi_web/status.json << END
 {
     "status_code":$status_code,
-    "text":\"$status_text\"
+    "text":"$status_text"
 }
 END
 }
