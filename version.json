@@ -1,6 +1,4 @@
 {
-    "app_name":"smart_vehicle_inspector_web",
-    "tag_name":"v0.0.2-alpha",
-    "prerelease":true
+    "version":"0.0.1+1"
 }
 

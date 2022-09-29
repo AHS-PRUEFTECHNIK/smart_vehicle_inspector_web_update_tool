@@ -28,17 +28,6 @@ status_datei_anpassen(){
 END
 }
 
-archiv_downloaden(){
-    if [ -z "$1" ]
-    then
-        # TODO: aktuellstes Archiv downloaden hinzufügen
-        :
-    else
-        # TODO: Archiv für Release Version $1 downloaden hinzufügen
-        :
-    fi
-}
-
 archiv_von_stick_kopieren(){
     usb_devices=($(ls  /dev/sd* | grep '[0-9]'))
 
@@ -64,7 +53,6 @@ archiv_von_stick_kopieren(){
 
 
 case "$1" in
-    online) archiv_downloaden "$2" ;;
     offline) if [ -z "$2" ] ; then archiv_von_stick_kopieren ; else archiv_file="$2" ; fi ;;
     *) echo "Error: Falscher Parameter $1 (für $0)"; exit 1 ;;
 esac
@@ -80,9 +68,9 @@ unzip -ud /var/www/apps/temp $archiv_file
 
 # Versionen prüfen
 echo "installierte Version":
-installierte_version= python -c "import sys, json; version_file = open(sys.argv[1]); print(json.load(version_file)['tag_name']); version_file.close();" "/var/www/apps/svi_web/version.json"
+installierte_version= python -c "import sys, json; version_file = open(sys.argv[1]); print(json.load(version_file)['version']); version_file.close();" "/var/www/apps/svi_web/version.json"
 echo "neue Version":
-neue_version= python -c "import sys, json; version_file = open(sys.argv[1]); print(json.load(version_file)['tag_name']); version_file.close();" "/var/www/apps/temp/$(basename $archiv_file .zip)/version.json"
+neue_version= python -c "import sys, json; version_file = open(sys.argv[1]); print(json.load(version_file)['version']); version_file.close();" "/var/www/apps/temp/$(basename $archiv_file .zip)/version.json"
 
 if [ $installierte_version -ne $neue_version ]; then
     # Backup erstellen
