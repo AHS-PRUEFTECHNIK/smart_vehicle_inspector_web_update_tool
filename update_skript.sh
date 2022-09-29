@@ -42,9 +42,9 @@ archiv_von_stick_kopieren(){
             umount $usb_device
         else
             # Datei kopieren
-            mkdir -p /var/www/apps/temp
-            cp -u $update_file /var/www/apps/temp
-            archiv_file=/var/www/apps/temp/$(basename $update_file)
+            mkdir -p /var/www/apps/temp/update
+            cp -u $update_file /var/www/apps/temp/update
+            archiv_file=/var/www/apps/temp/update/$(basename $update_file)
             umount $usb_device
             break
         fi
@@ -64,7 +64,7 @@ if [ -z "$archiv_file" ] ; then
 fi
 
 # Archiv entpacken
-unzip -ud /var/www/apps/temp $archiv_file
+unzip -ud /var/www/apps/temp/update $archiv_file
 
 # Versionen prüfen
 echo "installierte Version":
@@ -75,10 +75,10 @@ neue_version= python -c "import sys, json; version_file = open(sys.argv[1]); pri
 if [ $installierte_version -ne $neue_version ]; then
     # Backup erstellen
     timestamp=$(date +%Y%m%d_%H%M%S)
-    cp -r /var/www/apps/svi_web /var/www/apps/temp/svi_web_$timestamp.bak
+    cp -r /var/www/apps/svi_web /var/www/apps/temp/backup/$(basename $archiv_file)
 
     # entpackte Archiv Daten in Projektordner kopieren
-    cp -ru /var/www/apps/temp/$(basename $archiv_file .zip)/. /var/www/apps/svi_web
+    cp -ru /var/www/apps/temp/update/$(basename $archiv_file .zip)/. /var/www/apps/svi_web
 
     # Erfolgreich abgeschlossen
     status_datei_anpassen 200 "ok"
