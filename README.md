@@ -121,3 +121,8 @@ Für die Verwendung des Update Tools über eine Weboberfläche (Smart Vehicle In
 - Inhalt aus [smart_vehicle_inspector_web_api](https://github.com/AHS-PRUEFTECHNIK/smart_vehicle_inspector_web_api) Repository nach **api** kopieren
 - Inhalt aus [smart_vehicle_inspector_web_frontend](https://github.com/AHS-PRUEFTECHNIK/smart_vehicle_inspector_web_frontend) Repository build/web Verzeichnis nach **frontend** kopieren
 - Rechts Klick auf Ordner -> Senden an -> ZIP-komprimierter Ordner
+
+## Notizen
+- Github Releases nur begrenzte Anzahl an Zugriffen erlaubt
+  -> vorerst nur Offline Installation ohne Auflistung
+- Versionsdatei vereinfacht
