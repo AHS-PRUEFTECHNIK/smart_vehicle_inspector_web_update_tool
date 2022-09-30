@@ -23,7 +23,7 @@ status_datei_anpassen(){
     tee /var/www/apps/svi_web/status.json << END
 {
     "status_code":$status_code,
-    "text":\"$status_text\"
+    "text":"$status_text"
 }
 END
 }
@@ -75,10 +75,11 @@ neue_version= python -c "import sys, json; version_file = open(sys.argv[1]); pri
 if [ $installierte_version -ne $neue_version ]; then
     # Backup erstellen
     timestamp=$(date +%Y%m%d_%H%M%S)
+    mkdir -p /var/www/apps/temp/backup
     cp -r /var/www/apps/svi_web /var/www/apps/temp/backup/$(basename $archiv_file)
 
     # entpackte Archiv Daten in Projektordner kopieren
-    cp -ru /var/www/apps/temp/update/$(basename $archiv_file .zip)/. /var/www/apps/svi_web
+    cp -r /var/www/apps/temp/update/$(basename $archiv_file .zip)/. /var/www/apps/svi_web
 
     # Erfolgreich abgeschlossen
     status_datei_anpassen 200 "ok"
