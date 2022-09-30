@@ -76,7 +76,7 @@ if [ $installierte_version -ne $neue_version ]; then
     # Backup erstellen
     timestamp=$(date +%Y%m%d_%H%M%S)
     mkdir -p /var/www/apps/temp/backup
-    cp -r /var/www/apps/svi_web /var/www/apps/temp/backup/$(basename $archiv_file)
+    cp -r /var/www/apps/svi_web /var/www/apps/temp/backup/$(basename $archiv_file .zip)
 
     # entpackte Archiv Daten in Projektordner kopieren
     cp -r /var/www/apps/temp/update/$(basename $archiv_file .zip)/. /var/www/apps/svi_web
