@@ -113,16 +113,26 @@ Für die Verwendung des Update Tools über eine Weboberfläche (Smart Vehicle In
 
 ## Archiv erstellen
 - Ordner releases erstellen (falls nicht vorhanden)
-- Ordner erstellen **smart_vehicle_inspector_web-**\<**TAG NAMEN** z.B. v0.0.1-alpha (-alpha, -beta für Vorabversionen)\>
-- Ordner **api** erstellen
-- Ordner **frontend** erstellen
-- version.json kopieren und ["tag_name"] (optional ["prerelease"]) anpassen
-- optional update_skript.sh kopieren
-- Inhalt aus [smart_vehicle_inspector_web_api](https://github.com/AHS-PRUEFTECHNIK/smart_vehicle_inspector_web_api) Repository nach **api** kopieren
-- Inhalt aus [smart_vehicle_inspector_web_frontend](https://github.com/AHS-PRUEFTECHNIK/smart_vehicle_inspector_web_frontend) Repository build/web Verzeichnis nach **frontend** kopieren
+- Ordner erstellen **smart_vehicle_inspector_web-\<Versionsnumemr\>-<Buildnummer\>**
+>  z.B.: für Version 0.0.1+2 -> smart_vehicle_inspector_web-0.0.1-2
+- version.json an Version und Buildnummer anpassen (`{"version":"0.0.1+2"}`)
+- angepasste Dateien kopieren
+> **Achtung!** Ordnerstruktur muss Struktur auf Webserver reflektieren \
+> z.B.: für Anpassung an update_install_offline_resource.py:\
+> - smart_vehicle_inspector_web_0.0.1+2
+>   - version.json
+>   - api
+>     - update
+>       - update_install_offline_resource.py
 - Rechts Klick auf Ordner -> Senden an -> ZIP-komprimierter Ordner
 
 ## Notizen
 - Github Releases nur begrenzte Anzahl an Zugriffen erlaubt
   -> vorerst nur Offline Installation ohne Auflistung
 - Versionsdatei vereinfacht
+
+## TODOS
+- Offline Installation über Python implementieren statt Bash-Skript
+- Offline Installation Konfiguration und Profile nicht überschreiben
+- Backup API implementieren
+- Online API implementieren
